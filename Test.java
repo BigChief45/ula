@@ -1,7 +1,7 @@
 //package ula_test;
 
 import java.io.IOException;
-import ula.UlaLogger;
+//import ula.UlaLogger;
 
 public class Test {
 

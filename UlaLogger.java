@@ -46,7 +46,7 @@ public class UlaLogger
         //logger = Logging.getLogger(ULA.class.getName());        
         
         // Create an instance of our custom Handler
-        UlaHandler handler = new UlaHandler();
+        //UlaHandler handler = new UlaHandler();
         
         // Disable default console handler
         logger.setUseParentHandlers(false);
@@ -55,7 +55,7 @@ public class UlaLogger
         //ConsoleHandler handler = new ConsoleHandler();
         
         // Create file handler (Append: true)
-        //FileHandler txtFile = new FileHandler(tenant_id + ".txt", true);
+        FileHandler handler = new FileHandler(tenant_id + ".log", true);
                 
         // Set our custom formatter to the console handler
         handler.setFormatter(new logFormatter());        
@@ -138,9 +138,9 @@ public class UlaLogger
             String log = super.getFormatter().format(record);
             
             /* Initialize a Sender object instance and send the record */            
-            Sender sender = new Sender();
+            //Sender sender = new Sender();
             try {
-                sender.send(log);       
+                //sender.send(log);       
             }
             catch (Exception e) {
                 System.err.println(e.getMessage());

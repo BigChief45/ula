@@ -16,6 +16,8 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.StreamHandler;
 
+import java.io.File;
+
 /**
 * ULA Base class that provides special logging capability for SaaS.
 * @author Jaime Alvarez
@@ -24,6 +26,7 @@ import java.util.logging.StreamHandler;
 public class UlaLogger 
 {
     private String tenant_id;
+    private String saas_id;
     private String process_id;
     private Logger logger;
     
@@ -39,6 +42,8 @@ public class UlaLogger
            SaaS system.
         */
         tenant_id = "TN1231";
+        saas_id = "SAAS456";
+        
         process_id = ManagementFactory.getRuntimeMXBean().getName();    // Gets current process name
         
         /* Create a new Logging for this tenant or SaaS instance */
@@ -51,11 +56,23 @@ public class UlaLogger
         // Disable default console handler
         logger.setUseParentHandlers(false);
         
-        // Create new console handler
-        //ConsoleHandler handler = new ConsoleHandler();
+        // Create directory where logs will be written
+        // Logs will be written to ~/ula/
+        File directory = new File(System.getProperty("user.home"), "/ula");
         
+        // Check if directory exists
+        if ( !(directory.exists() && directory.isDirectory()) ) {
+            // If directory does not exist, create it.
+            boolean success = directory.mkdir();
+    
+            if ( !success )
+                System.err.println("Dir creation failed.");
+            else
+                System.out.println("Directory created");
+        }
+    
         // Create file handler (Append: true)
-        FileHandler handler = new FileHandler(tenant_id + ".log", true);
+        FileHandler handler = new FileHandler(System.getProperty("user.home") + "/ula/" + tenant_id + ".log", true);
                 
         // Set our custom formatter to the console handler
         handler.setFormatter(new logFormatter());        

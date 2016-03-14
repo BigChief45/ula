@@ -66,7 +66,7 @@ public class UlaLogger
             boolean success = directory.mkdir();
     
             if ( !success )
-                System.err.println("Dir creation failed.");
+                System.err.println("Directory creation failed.");
             else
                 System.out.println("Directory created");
         }
@@ -118,9 +118,11 @@ public class UlaLogger
 
             sb.append(new Date(record.getMillis()))
                 .append(" ")
-                .append(tenant_id)
-                .append(" ")
                 .append(process_id)
+                .append(" ")
+                .append(saas_id)
+                .append(" ")
+                .append(tenant_id)
                 .append(" ")
                 .append(record.getLevel().getLocalizedName())
                 .append(": ")
